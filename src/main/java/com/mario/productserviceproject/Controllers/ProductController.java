@@ -1,6 +1,8 @@
 package com.mario.productserviceproject.Controllers;
 
 import com.mario.productserviceproject.Models.Product;
+import com.mario.productserviceproject.Services.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -9,6 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/Products")
 public class ProductController {
+    IProductService productService;
+
+    @Autowired
+    public ProductController(IProductService productService){
+        this.productService = productService;
+    }
     @GetMapping()
     public List<Product> getProducts(){
         return  new ArrayList<>();
@@ -16,7 +24,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public Product getProductDetails(@PathVariable("id") long id){
-        return  new Product();
+        return  productService.getProductDetails(id);
     }
 
     @PostMapping()
