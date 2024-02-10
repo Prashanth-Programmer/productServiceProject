@@ -2,6 +2,13 @@ package com.mario.productserviceproject.Services;
 
 import com.mario.productserviceproject.Models.Product;
 
+import java.util.List;
+
 public interface IProductService {
     public Product getProductDetails(long id);
+    public List<Product> getProducts();
+    public Product createProduct(Product product);
+    public Product replaceProduct(long id, Product product);
+    public Product updateProduct(long id, Product product);
+    public void delete(long id);
 }
