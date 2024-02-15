@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpMessageConverterExtractor;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
+import  com.mario.productserviceproject.CustomExceptions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +23,13 @@ public class FakeStoreProductService implements IProductService{
         this.restTemplate = restTemplate;
     }
     @Override
-    public Product getProductDetails(long id) {
-        FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject(
-                "https://fakestoreapi.com/products/" + id,
-                FakeStoreProductDTO.class
-        );
-        return ConvertFakeStoreProductDTO(fakeStoreProductDTO);
+    public Product getProductDetails(long id) throws ProductDoesNotExistException{
+//        FakeStoreProductDTO fakeStoreProductDTO = restTemplate.getForObject(
+//                "https://fakestoreapi.com/products/" + id,
+//                FakeStoreProductDTO.class
+//        );
+        //return ConvertFakeStoreProductDTO(fakeStoreProductDTO);
+        throw new ProductDoesNotExistException("Product with id "+id+" does not exist.");
     }
 
     @Override

@@ -1,8 +1,11 @@
 package com.mario.productserviceproject.Controllers;
 
+import com.mario.productserviceproject.CustomExceptions.ProductDoesNotExistException;
 import com.mario.productserviceproject.Models.Product;
 import com.mario.productserviceproject.Services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -23,8 +26,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductDetails(@PathVariable("id") long id){
-        return  productService.getProductDetails(id);
+    public Product getProductDetails(@PathVariable("id") long id) throws ProductDoesNotExistException{
+            Product product = productService.getProductDetails(id);
+            return product;
     }
 
     @PostMapping()
