@@ -3,7 +3,9 @@ package com.mario.productserviceproject.Controllers;
 import com.mario.productserviceproject.CustomExceptions.ProductDoesNotExistException;
 import com.mario.productserviceproject.Models.Product;
 import com.mario.productserviceproject.Services.IProductService;
+import com.mario.productserviceproject.Services.SelfProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,8 @@ public class ProductController {
     IProductService productService;
 
     @Autowired
-    public ProductController(IProductService productService){
+
+    public ProductController(@Qualifier("selfProductService") IProductService productService){
         this.productService = productService;
     }
     @GetMapping()
@@ -42,7 +45,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public Product replaceProduct(@PathVariable("id") long id, @RequestBody Product product){
+    public Product replaceProduct(@PathVariable("id") long id, @RequestBody Product product) throws ProductDoesNotExistException{
         return productService.replaceProduct(id, product);
     }
 
