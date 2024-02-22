@@ -70,8 +70,35 @@ public class SelfProductService implements IProductService{
     }
 
     @Override
-    public Product updateProduct(long id, Product product) {
-        return null;
+    public Product updateProduct(long id, Product product) throws ProductDoesNotExistException {
+        Optional<Product> productResult = productRepository.findById(id);
+        if(productResult.isEmpty() == true){
+            throw new ProductDoesNotExistException("Product with id "+id+" does not exist.");
+        }
+        Product savedProduct = productResult.get();
+        if(product.getName() != null){
+            savedProduct.setName(product.getName());
+        }
+        if(product.getPrice() != null){
+            savedProduct.setPrice(product.getPrice());
+        }
+        if(product.getDescription() != null){
+            savedProduct.setDescription(product.getDescription());
+        }
+        if(product.getImageURL() != null){
+            savedProduct.setImageURL(product.getImageURL());
+        }
+        if(product.getCategory() !=  null) {
+            Optional<Category> categoryResult = categoryRepository.findByName(product.getCategory().getName());
+            if(categoryResult.isEmpty() == true){
+                Category category = categoryRepository.save(product.getCategory());
+                savedProduct.setCategory(category);
+            }
+            else{
+                savedProduct.setCategory(categoryResult.get());
+            }
+        }
+        return productRepository.save(savedProduct);
     }
 
     @Override

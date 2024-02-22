@@ -84,7 +84,7 @@ public class FakeStoreProductService implements IProductService{
     }
 
     @Override
-    public Product updateProduct(long id, Product product) {
+    public Product updateProduct(long id, Product product) throws ProductDoesNotExistException{
         FakeStoreProductDTO dto = new FakeStoreProductDTO();
         dto.setTitle(product.getName());
         FakeStoreProductDTO response = restTemplate.patchForObject("https://fakestoreapi.com/products/"+id, dto,FakeStoreProductDTO.class);

@@ -10,6 +10,6 @@ public interface IProductService {
     public List<Product> getProducts();
     public Product createProduct(Product product);
     public Product replaceProduct(long id, Product product) throws ProductDoesNotExistException;
-    public Product updateProduct(long id, Product product);
+    public Product updateProduct(long id, Product product) throws ProductDoesNotExistException;
     public void delete(long id);
 }

@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") long id, @RequestBody Product product){
+    public Product updateProduct(@PathVariable("id") long id, @RequestBody Product product) throws ProductDoesNotExistException{
         return productService.updateProduct(id, product);
     }
 
