@@ -6,10 +6,13 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface ICategoryRepository extends JpaRepository <Category, Long> {
     public Optional<Category> findByName(String name);
     public Category save(Category category);
+
+    public List<Category> findByNameStartingWith(String name);
 }
